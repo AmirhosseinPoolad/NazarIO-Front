@@ -10,6 +10,8 @@ import {
     Navigate,
 } from "react-router-dom";
 
+//TODO: dashboard, view poll
+
 import './App.css';
 import Login from './components/login/login.js'
 import SignUp from './components/signup/signup.js';
@@ -34,14 +36,17 @@ const Navigation = () => {
     const { onLogout } = useAuth()
     return (
         <nav>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/dashboard">Dashboard</NavLink>
-
+            {!token && (
+                <NavLink to="/">Login</NavLink>
+            )}
             {token && (
                 <button type="button" onClick={onLogout}>
                     Sign Out
                 </button>
             )}
+            <NavLink to="/dashboard">Dashboard</NavLink>
+
+            
         </nav>
     );
 };

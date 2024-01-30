@@ -22,7 +22,7 @@ function Login() {
 
     return <div className={"mainContainer"}>
         <div className={"titleContainer"}>
-            <div>Login</div>
+            <h1>Login</h1>
         </div>
         <br />
         <div className={"inputContainer"}>
