@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useAuth } from "../../Auth";
 
 
 function Login() {
-
+    const {onLogin} = useAuth()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [emailError, setEmailError] = useState("")
@@ -32,7 +33,7 @@ function Login() {
         }
 
         //TODO: AUTH STUFF
-
+        onLogin()
     }
 
 
