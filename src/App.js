@@ -1,25 +1,40 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+
 import './App.css';
+import Login from './components/login/login.js'
+import SignUp from './components/signup/signup.js';
+import MakePoll from './components/makePoll/makePoll.js'
+import ViewPoll from './components/viewPoll/viewPoll.js';
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Login />,
+    },
+    {
+        path: "/signup",
+        element: <SignUp/>
+    },
+    {
+        path: "/makePoll",
+        element: <MakePoll/>
+    },
+    {
+        path: "/viewPoll",
+        element: <ViewPoll/>
+    }
+]);
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <RouterProvider router={router} />
+    );
 }
 
 export default App;
