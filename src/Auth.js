@@ -2,18 +2,40 @@ import { useEffect, useState, createContext, useContext } from 'react';
 
 const authContext = createContext(null)
 
-//TODO Call API
-const Auth = () =>
-    new Promise((resolve) => {
-        setTimeout(() => resolve('2342f2f1d131rf12'), 250);
+export const useLocalStorage = (keyName, defaultValue) => {
+    const [storedValue, setStoredValue] = useState(() => {
+      try {
+        const value = window.localStorage.getItem(keyName);
+        if (value) {
+          return JSON.parse(value);
+        } else {
+          window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
+          return defaultValue;
+        }
+      } catch (err) {
+        return defaultValue;
+      }
     });
+    const setValue = (newValue) => {
+      try {
+        window.localStorage.setItem(keyName, JSON.stringify(newValue));
+      } catch (err) {}
+      setStoredValue(newValue);
+    };
+    return [storedValue, setValue];
+  };
+
+
+
+//TODO Call API
+const Auth = () => 123;
 
 const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(null);
 
+    const [token, setToken] = useLocalStorage("token", null);
     const handleLogin = async () => {
-        const token = await Auth();
-        setToken(token);
+        const newToken = await Auth();
+        setToken(newToken);
     };
 
     const handleLogout = () => {

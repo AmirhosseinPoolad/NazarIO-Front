@@ -1,39 +1,22 @@
 import React, { useState } from "react";
 import { useAuth } from "../../Auth";
-
+import { useNavigate, redirect } from 'react-router-dom';
 
 function Login() {
+    const navigate = useNavigate()
     const {onLogin} = useAuth()
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
-    const onButtonClick = () => {
-        setEmailError("")
+    const onButtonClick = async () => {
         setPasswordError("")
-        if ("" === email) {
-            setEmailError("Please enter your email")
-            return
-        }
-
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-            setEmailError("Please enter a valid email")
-            return
-        }
-
         if ("" === password) {
             setPasswordError("Please enter a password")
             return
         }
-
-
-        if (password.length < 7) {
-            setPasswordError("The password must be 8 characters or longer")
-            return
-        }
-
         //TODO: AUTH STUFF
-        onLogin()
+        await onLogin()
+        navigate('/makePoll')
     }
 
 
@@ -45,11 +28,10 @@ function Login() {
         <div className={"inputContainer"}>
             Username:
             <input
-                value={email}
-                placeholder="Enter your email here"
-                onChange={ev => setEmail(ev.target.value)}
+                value={username}
+                placeholder="Enter your username here"
+                onChange={ev => setUsername(ev.target.value)}
                 className={"inputBox"} />
-            <label className="errorLabel">{emailError}</label>
         </div>
         <br />
         <div className={"inputContainer"}>
@@ -70,7 +52,7 @@ function Login() {
                 value={"Log in"} />
         </div>
         <br />
-        <a href="linktosignup">Don't have an account?</a>
+        <a href="signup">Don't have an account?</a>
     </div>
 }
 
